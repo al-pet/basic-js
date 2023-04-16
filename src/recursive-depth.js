@@ -26,21 +26,6 @@ class DepthCalculator {
 
 }
 
-
-// calculateDepth(arr, res = [], n = 1) {
-//   let n;
-//   arr.forEach((e) => {
-//     if (Array.isArray(e)) {
-//       this.calculateDepth(e, res, ++n);
-//       n--;
-//     }
-//   });
-//   return Math.max(...res);
-// }
-
-
-
-
 module.exports = {
   DepthCalculator
 };
