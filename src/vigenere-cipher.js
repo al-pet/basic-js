@@ -20,13 +20,65 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(boolean) {
+    this.set = [];
+    for (let i = 'a'.charCodeAt(0); i <= 'z'.charCodeAt(0); i++) {
+      this.set.push(String.fromCharCode(i))
+    }
+    this.reverse = boolean;
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  encrypt(string, key) {
+    if (string && key) {
+      string = string.split("");
+      key = key.split("");
+      let keyCount = 0;
+      let reg = /[A-Za-z]/;
+      for (let i = 0; i < string.length; i++) {
+        if (reg.test(string[i])) {
+          string[i] =
+            this.set[
+              (this.set.indexOf(string[i].toLowerCase()) +
+                this.set.indexOf(
+                  key[keyCount % key.length].toLowerCase()
+                )) %
+              26
+            ].toUpperCase();
+          keyCount++;
+        }
+      }
+      if (this.reverse === false) {
+        return string.reverse().join("");
+      }
+      return string.join("");
+    }
+    throw new Error("Incorrect arguments!");
+  }
+
+  decrypt(string, key) {
+    if (string && key) {
+      string = string.split("");
+      key = key.split("");
+      let keyCount = 0;
+      let reg = /[A-Za-z]/;
+      for (let i = 0; i < string.length; i++) {
+        if (reg.test(string[i])) {
+          let num =
+            (this.set.indexOf(string[i].toLowerCase()) -
+              this.set.indexOf(
+                key[keyCount % key.length].toLowerCase()
+              )) %
+            26;
+          num < 0 ? (num += 26) : num;
+          string[i] = this.set[num].toUpperCase();
+          keyCount++;
+        }
+      }
+      if (this.reverse === false) {
+        return string.reverse().join("");
+      }
+      return string.join("");
+    }
+    throw new Error("Incorrect arguments!");
   }
 }
 
