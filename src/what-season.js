@@ -12,14 +12,10 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function getSeason(date) {
-  
+
   if (date) {
 
-    if (date[Symbol.toStringTag]) {
-      throw new Error("Invalid date!");
-    }
-
-    if (date instanceof Date) {
+    if (date instanceof Date && !date[Symbol.toStringTag]) {
 
       const month = date.getMonth() + 1;
 
